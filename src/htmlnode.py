@@ -16,8 +16,27 @@ class HTMLNode():
             tup_of_props = self.props.items()
             for tup in tup_of_props:
                 key, value = tup
-                props_in_html += f" {key}={value}"
+                props_in_html += f' {key}="{value}"'
         return props_in_html
 
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})" #{self.props_to_html()} add if you want to see func as well
+
+class LeafNode(HTMLNode):
+    def __init__(self, tag, value, props=None):
+        super().__init__(tag, value, None, props)
+    
+    def to_html(self):
+        #print(self.value)
+        if not self.value:
+            raise ValueError("All leafnodes must have a value")
+        
+        if not self.tag:
+            return self.value
+        if not self.props:
+            return f"<{self.tag}>{self.value}</{self.tag}>"
+        
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+
+    def __repr__(self):
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
