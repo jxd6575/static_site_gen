@@ -12,7 +12,7 @@ from_path = "./content/index.md"
 template_path = "./template.html"
 to_path = "./public/index.html"
 dir_path_content = "./content"
-basepath = '/'
+basepath = "/static_site_gen/" if len(sys.argv) > 1 else "/"
 def main():
     print(basepath)
     print("Deleting docs directory...")
